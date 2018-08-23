@@ -1,3 +1,3 @@
 # Charter PasswdValidator Project
 
-Please see PasswdValidatorNotes.doc for supplemental considerations and notes for this project. Thank you.
+Please see /docs/PasswdValidatorNotes.doc for supplemental considerations and notes for this project. In IDE select open-with--other--MS Word. Thank you.
