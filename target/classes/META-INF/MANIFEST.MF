@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Implementation-Title: PasswdValidatorProject
+Implementation-Version: 08-20-2018
+Built-By: bdbd
+Implementation-Vendor-Id: com.bjensen
+Build-Jdk: 1.8.0_181
+Implementation-URL: https://projects.spring.io/spring-boot/#/spring-bo
+ ot-starter-parent/PasswdValidatorProject
+Created-By: Maven Integration for Eclipse
+
