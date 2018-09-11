@@ -4,7 +4,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * 
  * @author bjensen
  *
  * SpringBoot execution class for development runtime container.

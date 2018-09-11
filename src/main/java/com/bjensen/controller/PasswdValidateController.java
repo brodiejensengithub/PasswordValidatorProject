@@ -3,7 +3,6 @@ package com.bjensen.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.Errors;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,10 +26,10 @@ public class PasswdValidateController {
 	@RequestMapping("/validatePasswd")
 	public List<ObjectError> validatePasswd(@ModelAttribute Password passwd) {
 
-		Errors error = null;
-		List<ObjectError> validStatus = passwdValSvc.validate(passwd, error);
+		List<ObjectError> errorsList = passwdValSvc.validate(passwd, null);
 
-		return validStatus;
+		//using MVC would pass back ModelAndView respectively as per the logical View.
+		return errorsList;
 	}
 
 }

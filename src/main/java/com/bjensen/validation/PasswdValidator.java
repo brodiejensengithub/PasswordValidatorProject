@@ -6,6 +6,7 @@ import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
@@ -15,9 +16,10 @@ import com.bjensen.model.Password;
 /**
  * @author bjensen
  *
- *         Validator class to enforce rules on passwd attribute of Password
- *         object.
+ * Validator class to enforce rules on passwd attribute of Password object.
+ * 
  */
+@Component
 public class PasswdValidator implements Validator {
 
 	private static final int MINIMUM_PASSWORD_LENGTH = 5;
@@ -43,8 +45,10 @@ public class PasswdValidator implements Validator {
 
 		ValidationUtils.rejectIfEmpty(error, "passwd", passwdRbMsgSrc.getMessage("passwd.empty", null, Locale.ENGLISH));
 
+		//Could also use length constraints on the Password bean itself with @ControllerAdvice and an @ExceptionHander 
+			//method on the RestController  rather than here--response can then be filtered by desired attributes.
 		if (passwdString.length() < MINIMUM_PASSWORD_LENGTH || passwdString.length() > MAXIMUM_PASSWORD_LENGTH) {
-			error.rejectValue("passwd", "passwd violates length criteria.");
+			error.rejectValue("passwd", passwdRbMsgSrc.getMessage("passwd.length", null, Locale.ENGLISH));
 		} else if (caseMatcher.find()) {
 			error.rejectValue("passwd", passwdRbMsgSrc.getMessage("passwd.lowercase.only", null, Locale.ENGLISH));
 		} else if (!charIntMatcher.find()) {

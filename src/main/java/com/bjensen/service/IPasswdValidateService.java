@@ -13,5 +13,5 @@ import org.springframework.validation.ObjectError;
 public interface IPasswdValidateService {
 
 	public List<ObjectError> validate(Object obj, Errors error);
-
+	
 }

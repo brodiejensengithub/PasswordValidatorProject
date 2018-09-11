@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class Password {
 
+	
 	private String passwd;
 
 	public String getPasswd() {

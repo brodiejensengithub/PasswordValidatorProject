@@ -29,6 +29,8 @@ public class PasswdValidatorProjectApplicationTests {
 
 	@Autowired
 	IPasswdValidateService passwdValSvc;
+	
+	private static String PASSWD = "sdjgkh"; // modify this value to test each validation rule.
 
 	/**
 	 * Test case for null passwd.
@@ -43,7 +45,7 @@ public class PasswdValidatorProjectApplicationTests {
 	 */
 	@Test
 	public void testPasswdValidatorService() {
-		String password = "sdjgkh"; // modify this value to test each validation rule.
+		String password = PASSWD;
 		Errors error = null;
 		passwd.setPasswd(password);
 		passwdValSvc.validate(passwd, error);
