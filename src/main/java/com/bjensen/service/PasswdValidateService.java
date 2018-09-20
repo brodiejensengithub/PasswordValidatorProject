@@ -1,51 +1,68 @@
 package com.bjensen.service;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.DataBinder;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ObjectError;
 
+import com.bjensen.model.ValidationResponse;
 import com.bjensen.validation.PasswdValidator;
 
-/**
- * @author bjensen
+/** 
+ * Service layer implementation for PasswdValidator. This method uses a PasswdValidator 
+ * Object via DI to perform validation of the password Object parameter.
  * 
- * Service layer implementation for PasswdValidator.
- *
+ * @author bjensen
  */
 @Service
-public class PasswdValidateService implements IPasswdValidateService {
+public class PasswdValidateService implements IValidateService {
 	
-	//could also be another msg in msg props file
-	public static String ISVALID = "Password is valid";
+	@Autowired
+	MessageSource passwdRbMsgSrc;
 
 	@Autowired
 	PasswdValidator passwdValidator;
+	
+	@Autowired
+	ValidationResponse validationResponse;
 
-	public List<ObjectError> validate(Object obj, Errors error) {
-		
-		List<ObjectError> errors = new ArrayList<>();
+	/**
+	 * This method uses a PasswdValidator Object to validate the Password parameter
+	 * through the use of Spring DataBinder to bind and use PasswdValidator to impose
+	 * validation rules defined within it.
+	 * 
+	 * @param passwd Password Object to be validated.
+	 * @param error Errors Object to contain data binding and validation errors.
+	 * 
+	 * @return Returns first FieldError containing a constraint violation on the Password
+	 * Object in JSON response, or default for a valid password argument.
+	 */
+	public ValidationResponse validate(Object passwd, Errors error) {
 
-		DataBinder binder = new DataBinder(obj);
+		ObjectError objectError;
+
+		DataBinder binder = new DataBinder(passwd);	
+
 		binder.setValidator(passwdValidator); 
 		binder.validate();
 
 		BindingResult results = binder.getBindingResult();
 		
-		//Can also pull out specific properties of ObjectError (like just the code value) to return to View
 		if (results.hasErrors()) {
-			errors= results.getAllErrors();
+			objectError = results.getFieldError();
+			validationResponse = new ValidationResponse(objectError.getCode(), objectError.getDefaultMessage());
 		} else {
-			errors.add(new ObjectError("obj", ISVALID));
+			validationResponse = new ValidationResponse(passwdRbMsgSrc.getMessage
+					("passwd.ok", null, Locale.ENGLISH), passwdRbMsgSrc.getMessage
+					("passwd.valid", null, Locale.ENGLISH)); 
 		}
 
-		return errors;
-
+		return validationResponse;
 	}
-
+	
 }

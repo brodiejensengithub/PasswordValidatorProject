@@ -1,6 +1,8 @@
 com.bjensen
+com.bjensen.advice
 com.bjensen.config
 com.bjensen.controller
+com.bjensen.exception
 com.bjensen.model
 com.bjensen.service
 com.bjensen.validation

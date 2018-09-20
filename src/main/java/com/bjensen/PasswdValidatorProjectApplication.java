@@ -4,9 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
+ * SpringBoot execution class for development and testing using external tools 
+ * on this API such as PostMan.
+ * 
  * @author bjensen
- *
- * SpringBoot execution class for development runtime container.
  */
 @SpringBootApplication
 public class PasswdValidatorProjectApplication {
